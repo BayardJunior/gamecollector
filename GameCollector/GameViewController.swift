@@ -10,8 +10,15 @@ import UIKit
 
 class GameViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
+    
     @IBOutlet weak var descricao: UITextField!
     @IBOutlet weak var image: UIImageView!
+    
+    @IBOutlet weak var deleteBt: UIButton!
+    @IBOutlet weak var addUpdateBt: UIButton!
+    
+    
+    var game: Game? = nil
     
     var imagePicker = UIImagePickerController()
     
@@ -19,20 +26,46 @@ class GameViewController: UIViewController,UIImagePickerControllerDelegate,UINav
         
         super.viewDidLoad()
         imagePicker.delegate = self
+        
+        //
+        if(game != nil){
+            
+                        //atribuiçao do titulo do jogo
+            descricao.text = game!.text
+            //cnvertendo NSDate(CoreData) pra imageview
+            image.image = UIImage(data: game!.image as! Data)
+            //setando o butao para update
+            addUpdateBt.setTitle("Update", for: .normal)
+        }else{
+            deleteBt.isHidden = true
+        }
+        
         // Do any additional setup after loading the view.
     }
     
     
     @IBAction func addNaTabela(_ sender: Any) {
-        //pega o contexto
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
-        //cria a entidade
-        let game = Game(context: context)
-        
-        //atribuiçao
-        game.text = descricao.text
-        game.image = UIImagePNGRepresentation(image.image!) as NSData!
+        if game != nil {
+
+            //atribuiçao
+            game!.text = descricao.text
+            game!.image = UIImagePNGRepresentation(image.image!) as NSData!
+
+            
+        }else{
+            
+            //pega o contexto
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            
+            //cria a entidade
+            let game = Game(context: context)
+            
+            //atribuiçao
+            game.text = descricao.text
+            game.image = UIImagePNGRepresentation(image.image!) as NSData!
+            
+        }
         
         //salva o contexto
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
@@ -40,6 +73,22 @@ class GameViewController: UIViewController,UIImagePickerControllerDelegate,UINav
         //tras a tela anterior
         navigationController!.popViewController(animated: true)
     }
+    
+    @IBAction func deletaJogo(_ sender: Any) {
+        //pega o contexto da aplicação
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        //deletar a informaçao do coredata
+        context.delete(game!)
+        
+        //salva o contexto
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        
+        //tras a tela anterior
+        navigationController!.popViewController(animated: true)
+        
+    }
+
     
     @IBAction func galeria(_ sender: Any) {
         imagePicker.sourceType = .photoLibrary
@@ -60,6 +109,13 @@ class GameViewController: UIViewController,UIImagePickerControllerDelegate,UINav
     }
     
     @IBAction func camera(_ sender: Any) {
+        
+        //pega a camera do iPhone
+        imagePicker.sourceType = .camera
+        
+        //apresenta em uma nova viewvontroller
+        present(imagePicker, animated: true, completion: nil)
+        
     }
 
     override func didReceiveMemoryWarning() {

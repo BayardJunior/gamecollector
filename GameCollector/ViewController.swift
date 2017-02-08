@@ -55,6 +55,17 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let game = games[indexPath.row]
+        performSegue(withIdentifier: "clicouNaTabela", sender: game)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let proximaTela = segue.destination as! GameViewController
+        
+        proximaTela.game = sender as? Game        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

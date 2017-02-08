@@ -40,7 +40,7 @@
                     <navigationItem key="navigationItem" id="5JM-7u-qh2">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="G7P-oV-PKq">
                             <connections>
-                                <segue destination="tPS-mI-okp" kind="show" id="7Qw-nj-TbA"/>
+                                <segue destination="tPS-mI-okp" kind="show" identifier="clicouNaTabela" id="7Qw-nj-TbA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -64,7 +64,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Captura de Tela 2017-01-13 às 17.54.49.png" translatesAutoresizingMaskIntoConstraints="NO" id="Lhp-Il-ZNm">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Captura de Tela 2017-01-13 às 17.54.49.png" translatesAutoresizingMaskIntoConstraints="NO" id="Lhp-Il-ZNm">
                                 <rect key="frame" x="57.5" y="89" width="260" height="148"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="260" id="2po-yS-Rvb"/>
@@ -82,6 +82,14 @@
                                 <state key="normal" title="Add"/>
                                 <connections>
                                     <action selector="addNaTabela:" destination="tPS-mI-okp" eventType="touchUpInside" id="aTw-9G-3Qn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xln-gB-jfr">
+                                <rect key="frame" x="165" y="355" width="45" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Delete"/>
+                                <connections>
+                                    <action selector="deletaJogo:" destination="tPS-mI-okp" eventType="touchUpInside" id="aSq-lp-H2p"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -113,6 +121,8 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="addUpdateBt" destination="mEH-qB-RL0" id="wym-P8-pxY"/>
+                        <outlet property="deleteBt" destination="xln-gB-jfr" id="zo4-2D-haC"/>
                         <outlet property="descricao" destination="4gt-ps-F4a" id="cyU-F8-d4C"/>
                         <outlet property="image" destination="Lhp-Il-ZNm" id="MEJ-sg-gWn"/>
                     </connections>
